@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore - Swap Skill</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Header -->
+  <header class="bg-white shadow-md p-6 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-600">Swap Skill</h1>
+      <nav class="space-x-6">
+        <a href="index.html" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+        <a href="signup.html" class="text-gray-700 hover:text-indigo-600 font-medium">Sign Up</a>
+        <a href="login.html" class="text-gray-700 hover:text-indigo-600 font-medium">Log In</a>
+        <a href="skillmatching.html" class="text-gray-700 hover:text-indigo-600 font-medium">Skill Match</a>
+        <a href="builtinscheduling.html" class="text-gray-700 hover:text-indigo-600 font-medium">Schedule</a>
+        <a href="chat.html" class="text-gray-700 hover:text-indigo-600 font-medium">Messages</a>
+        <a href="explore.html" class="text-gray-700 hover:text-indigo-600 font-medium">Explore</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Explore Users Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-semibold text-center text-indigo-700 mb-10">Explore Community</h2>
+      <input id="searchInput" type="text" placeholder="Search skills or names..." class="w-full max-w-md mx-auto block px-4 py-2 border border-gray-300 rounded-lg mb-10" />
+      <div id="userContainer" class="grid md:grid-cols-3 gap-8"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 text-center text-sm text-gray-500">
+    <p>&copy; 2025 Swap Skill. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const users = [
+      { name: "John Doe", img: "https://randomuser.me/api/portraits/men/32.jpg", teaches: "Video Editing", learns: "Python", profile: "profile-john.html" },
+      { name: "Emily Smith", img: "https://randomuser.me/api/portraits/women/44.jpg", teaches: "Public Speaking", learns: "Graphic Design", profile: "profile-emily.html" },
+      { name: "Mark Evans", img: "https://randomuser.me/api/portraits/men/52.jpg", teaches: "Guitar", learns: "UX Design", profile: "profile-mark.html" },
+      { name: "Lena Tran", img: "https://randomuser.me/api/portraits/women/68.jpg", teaches: "Cooking", learns: "Web Development", profile: "profile-lena.html" },
+      { name: "Jake Ryan", img: "https://randomuser.me/api/portraits/men/28.jpg", teaches: "Photography", learns: "Data Analysis", profile: "profile-jake.html" }
+    ];
+
+    function renderUsers(filter = "") {
+      const container = document.getElementById("userContainer");
+      container.innerHTML = "";
+      users.filter(user =>
+        user.name.toLowerCase().includes(filter.toLowerCase()) ||
+        user.teaches.toLowerCase().includes(filter.toLowerCase()) ||
+        user.learns.toLowerCase().includes(filter.toLowerCase())
+      ).forEach(user => {
+        const card = document.createElement("div");
+        card.className = "bg-gray-100 rounded-xl p-6 shadow hover:shadow-lg transition";
+        card.innerHTML = `
+          <img class="w-24 h-24 rounded-full mx-auto mb-4" src="${user.img}" alt="User">
+          <h4 class="text-xl font-semibold text-center text-indigo-600">${user.name}</h4>
+          <p class="text-center text-gray-600">Teaches: ${user.teaches}<br>Wants to learn: ${user.learns}</p>
+          <div class="mt-4 flex justify-center space-x-3">
+            <a href="${user.profile}" class="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700">View Profile</a>
+            <a href="chat.html" class="px-4 py-2 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300">Message</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      renderUsers(e.target.value);
+    });
+
+    window.onload = () => renderUsers();
+  </script>
+</body>
+</html>

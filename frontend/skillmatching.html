@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Matching - Swap Skill</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <header class="bg-white shadow-md p-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-600">Swap Skill</h1>
+      <nav class="space-x-6">
+        <a href="index.html" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+        <a href="signup.html" class="text-gray-700 hover:text-indigo-600 font-medium">Sign Up</a>
+        <a href="login.html" class="text-gray-700 hover:text-indigo-600 font-medium">Log In</a>
+        <a href="skillmatching.html" class="text-gray-700 hover:text-indigo-600 font-medium">Skill Match</a>
+        <a href="builtinscheduling.html" class="text-gray-700 hover:text-indigo-600 font-medium">Schedule</a>
+        <a href="chat.html" class="text-gray-700 hover:text-indigo-600 font-medium">Messages</a>
+        <a href="explore.html" class="text-gray-700 hover:text-indigo-600 font-medium">Explore</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto py-16 px-4">
+    <h2 class="text-3xl font-bold text-center text-indigo-700 mb-10">Skill Matching</h2>
+
+    <form id="matchForm" class="bg-white p-6 rounded-xl shadow mb-10">
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label for="teach" class="block text-gray-700 font-medium mb-2">Skills You Can Teach</label>
+          <input type="text" id="teach" name="teach" placeholder="e.g. Python, Photography" class="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label for="learn" class="block text-gray-700 font-medium mb-2">Skills You Want to Learn</label>
+          <input type="text" id="learn" name="learn" placeholder="e.g. Graphic Design, Spanish" class="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+      </div>
+      <div class="mt-6 text-center">
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition">Find Matches</button>
+      </div>
+    </form>
+
+    <section id="results">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">Suggested Matches</h3>
+      <div id="matchResults" class="grid gap-6 md:grid-cols-2"></div>
+    </section>
+  </main>
+
+  <footer class="bg-white border-t py-6 text-center text-sm text-gray-500">
+    <p>&copy; 2025 Swap Skill. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const mockUsers = [
+      {
+        name: "Alex M.",
+        canTeach: "Video Editing",
+        wantsToLearn: "Python"
+      },
+      {
+        name: "Sara K.",
+        canTeach: "Spanish",
+        wantsToLearn: "UI/UX Design"
+      },
+      {
+        name: "Jordan T.",
+        canTeach: "Python",
+        wantsToLearn: "Photography"
+      },
+      {
+        name: "Lena W.",
+        canTeach: "Graphic Design",
+        wantsToLearn: "Spanish"
+      }
+    ];
+
+    document.getElementById('matchForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const teachInput = document.getElementById('teach').value.toLowerCase();
+      const learnInput = document.getElementById('learn').value.toLowerCase();
+
+      const matchContainer = document.getElementById('matchResults');
+      matchContainer.innerHTML = '';
+
+      const matches = mockUsers.filter(user => {
+        return (
+          user.canTeach.toLowerCase().includes(learnInput) &&
+          user.wantsToLearn.toLowerCase().includes(teachInput)
+        );
+      });
+
+      if (matches.length === 0) {
+        matchContainer.innerHTML = '<p class="text-gray-600">No matches found. Try different skills.</p>';
+        return;
+      }
+
+      matches.forEach(user => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-5 rounded-xl shadow hover:shadow-lg transition';
+        card.innerHTML = `
+          <h4 class="text-lg font-bold text-indigo-600">${user.name}</h4>
+          <p class="text-gray-700">Can Teach: ${user.canTeach}</p>
+          <p class="text-gray-700">Wants to Learn: ${user.wantsToLearn}</p>
+          <button class="mt-3 bg-indigo-500 text-white px-4 py-2 rounded-xl hover:bg-indigo-600">Message</button>
+        `;
+        matchContainer.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>

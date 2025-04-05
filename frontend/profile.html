@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile - Swap Skill</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <header class="bg-white shadow-md p-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-600">Swap Skill</h1>
+      <nav class="space-x-6">
+        <a href="index.html" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+        <a href="signup.html" class="text-gray-700 hover:text-indigo-600 font-medium">Sign Up</a>
+        <a href="login.html" class="text-gray-700 hover:text-indigo-600 font-medium">Log In</a>
+        <a href="skillmatching.html" class="text-gray-700 hover:text-indigo-600 font-medium">Skill Match</a>
+        <a href="builtinscheduling.html" class="text-gray-700 hover:text-indigo-600 font-medium">Schedule</a>
+        <a href="chat.html" class="text-gray-700 hover:text-indigo-600 font-medium">Messages</a>
+        <a href="explore.html" class="text-gray-700 hover:text-indigo-600 font-medium">Explore</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto py-12 px-6">
+    <div class="bg-white shadow rounded-xl p-8">
+      <div class="flex items-center gap-6 mb-8">
+        <img src="https://i.pravatar.cc/100?img=10" alt="Profile" class="w-24 h-24 rounded-full">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800">Jane Doe</h2>
+          <p class="text-gray-500">Video Editor & Python Learner</p>
+        </div>
+        <button onclick="toggleEditPanel()" class="ml-auto bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Edit Profile</button>
+      </div>
+
+      <!-- Editable Panel -->
+      <div id="editPanel" class="hidden mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block mb-1 font-medium text-gray-700">Name</label>
+            <input type="text" value="Jane Doe" class="w-full border border-gray-300 rounded-xl p-3" />
+          </div>
+          <div>
+            <label class="block mb-1 font-medium text-gray-700">Title</label>
+            <input type="text" value="Video Editor & Python Learner" class="w-full border border-gray-300 rounded-xl p-3" />
+          </div>
+        </div>
+        <div class="mb-6">
+          <label class="block mb-1 font-medium text-gray-700">Bio</label>
+          <textarea rows="4" class="w-full border border-gray-300 rounded-xl p-3">I love crafting visual stories through editing and I'm currently diving deep into Python programming. Always happy to swap skills and learn together!</textarea>
+        </div>
+        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Save Changes</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold text-indigo-700 mb-2">Bio</h3>
+          <p class="text-gray-600">I love crafting visual stories through editing and I'm currently diving deep into Python programming. Always happy to swap skills and learn together!</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold text-indigo-700 mb-2">Skills</h3>
+          <ul class="list-disc pl-5 text-gray-600">
+            <li><strong>Teaches:</strong> Video Editing, Motion Graphics</li>
+            <li><strong>Learning:</strong> Python, Web Development</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <h3 class="text-xl font-semibold text-indigo-700 mb-4">Scheduled Sessions</h3>
+        <ul class="space-y-3">
+          <li class="bg-gray-50 p-4 rounded-xl flex justify-between items-center">
+            <div>
+              <p class="font-medium text-gray-800">Python Basics with Alice</p>
+              <p class="text-sm text-gray-500">Monday, April 7th at 4:00 PM</p>
+            </div>
+            <button class="text-sm text-indigo-600 hover:underline">Edit</button>
+          </li>
+          <li class="bg-gray-50 p-4 rounded-xl flex justify-between items-center">
+            <div>
+              <p class="font-medium text-gray-800">Video Editing with Bob</p>
+              <p class="text-sm text-gray-500">Wednesday, April 9th at 2:00 PM</p>
+            </div>
+            <button class="text-sm text-indigo-600 hover:underline">Edit</button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-10">
+        <h3 class="text-xl font-semibold text-indigo-700 mb-4">Progress Tracker</h3>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Python Mastery</label>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+              <div class="bg-indigo-600 h-3 rounded-full" style="width: 45%;"></div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Video Editing Expertise</label>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+              <div class="bg-green-500 h-3 rounded-full" style="width: 80%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-white border-t py-6 text-center text-sm text-gray-500">
+    <p>&copy; 2025 Swap Skill. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleEditPanel() {
+      const panel = document.getElementById('editPanel');
+      panel.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>

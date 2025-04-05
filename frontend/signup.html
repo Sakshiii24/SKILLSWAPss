@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swap Skill - Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
+    <h2 class="text-2xl font-bold text-indigo-700 mb-6 text-center">Create Your Account</h2>
+    <form action="#" method="POST" class="space-y-5">
+      <div>
+        <label for="name" class="block text-gray-700 font-medium mb-1">Full Name</label>
+        <input type="text" id="name" name="name" class="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+      </div>
+      <div>
+        <label for="email" class="block text-gray-700 font-medium mb-1">Email Address</label>
+        <input type="email" id="email" name="email" class="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+      </div>
+      <div>
+        <label for="password" class="block text-gray-700 font-medium mb-1">Password</label>
+        <input type="password" id="password" name="password" class="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+      </div>
+      <div>
+        <label for="skills" class="block text-gray-700 font-medium mb-1">Skills You Can Teach</label>
+        <input type="text" id="skills" name="skills" class="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Python, Guitar, Design" required />
+      </div>
+      <div>
+        <label for="learn" class="block text-gray-700 font-medium mb-1">Skills You Want to Learn</label>
+        <input type="text" id="learn" name="learn" class="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="e.g. Video Editing, Spanish" required />
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition">Sign Up</button>
+    </form>
+    <p class="text-center text-sm text-gray-500 mt-6">
+      Already have an account? <a href="login.html" class="text-indigo-600 hover:underline">Log In</a>
+    </p>
+  </div>
+</body>
+</html>

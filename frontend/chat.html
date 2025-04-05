@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages - Swap Skill</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <header class="bg-white shadow-md p-6">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-600">Swap Skill</h1>
+      <nav class="space-x-6">
+        <a href="index.html" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+        <a href="signup.html" class="text-gray-700 hover:text-indigo-600 font-medium">Sign Up</a>
+        <a href="login.html" class="text-gray-700 hover:text-indigo-600 font-medium">Log In</a>
+        <a href="skillmatching.html" class="text-gray-700 hover:text-indigo-600 font-medium">Skill Match</a>
+        <a href="builtinscheduling.html" class="text-gray-700 hover:text-indigo-600 font-medium">Schedule</a>
+        <a href="chat.html" class="text-gray-700 hover:text-indigo-600 font-medium">Messages</a>
+        <a href="explore.html" class="text-gray-700 hover:text-indigo-600 font-medium">Explore</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto py-10 px-4">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-8">Chat</h2>
+
+    <div class="bg-white shadow rounded-xl overflow-hidden flex h-[70vh]">
+      <!-- Sidebar -->
+      <aside class="w-1/4 border-r p-4 space-y-4 overflow-y-auto">
+        <h3 class="text-xl font-semibold mb-4">Contacts</h3>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 cursor-pointer hover:bg-gray-100 p-2 rounded-xl">
+            <img src="https://i.pravatar.cc/40?img=1" alt="User" class="w-10 h-10 rounded-full">
+            <span class="font-medium">Alice</span>
+          </div>
+          <div class="flex items-center gap-3 cursor-pointer hover:bg-gray-100 p-2 rounded-xl">
+            <img src="https://i.pravatar.cc/40?img=2" alt="User" class="w-10 h-10 rounded-full">
+            <span class="font-medium">Bob</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Chat box -->
+      <div class="flex-1 flex flex-col">
+        <div class="flex justify-between items-center px-4 py-2 border-b">
+          <div class="flex gap-2">
+            <button class="text-gray-500 hover:text-indigo-600">🔍</button>
+            <button class="text-gray-500 hover:text-indigo-600">🎤</button>
+          </div>
+          <div class="flex gap-4">
+            <button class="text-gray-500 hover:text-indigo-600">📞</button>
+            <button class="text-gray-500 hover:text-indigo-600">📹</button>
+          </div>
+        </div>
+
+        <div id="chatBox" class="flex-1 p-4 space-y-3 overflow-y-auto">
+          <!-- Messages will appear here -->
+        </div>
+
+        <div id="typingIndicator" class="px-4 py-2 text-sm text-gray-500 hidden">Other user is typing...</div>
+
+        <div class="border-t p-4 flex gap-2 items-center">
+          <input id="messageInput" type="text" placeholder="Type your message..." class="flex-1 border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <input type="file" id="fileInput" class="hidden">
+          <button onclick="document.getElementById('fileInput').click()" class="text-indigo-500 hover:text-indigo-700">
+            📎
+          </button>
+          <button id="emojiBtn" class="text-yellow-500 text-xl hover:scale-110 transition">😊</button>
+          <button id="sendBtn" class="bg-indigo-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition">Send</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-white border-t py-6 text-center text-sm text-gray-500">
+    <p>&copy; 2025 Swap Skill. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const sendBtn = document.getElementById('sendBtn');
+    const messageInput = document.getElementById('messageInput');
+    const typingIndicator = document.getElementById('typingIndicator');
+    const fileInput = document.getElementById('fileInput');
+    const emojiBtn = document.getElementById('emojiBtn');
+
+    let userTurn = true;
+    let lastDate = '';
+
+    function getTimeStamp() {
+      const now = new Date();
+      return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function getDateGroup() {
+      const today = new Date().toDateString();
+      if (lastDate !== today) {
+        const dateLabel = document.createElement('div');
+        dateLabel.className = 'text-center text-xs text-gray-400 my-4';
+        dateLabel.textContent = today;
+        chatBox.appendChild(dateLabel);
+        lastDate = today;
+      }
+    }
+
+    function appendMessage(message, isImage = false) {
+      getDateGroup();
+
+      const messageWrapper = document.createElement('div');
+      const messageBubble = document.createElement('div');
+      const avatar = document.createElement('img');
+      const messageContent = document.createElement('div');
+      const timeStamp = document.createElement('div');
+      const statusIcon = document.createElement('div');
+
+      messageBubble.className = 'flex items-end gap-2 max-w-xs';
+      messageContent.className = 'p-3 rounded-xl relative';
+      timeStamp.className = 'text-xs text-gray-400 mt-1 flex justify-between';
+
+      if (userTurn) {
+        messageWrapper.className = 'flex justify-end';
+        messageContent.classList.add('bg-indigo-100', 'text-indigo-800');
+        avatar.src = 'https://i.pravatar.cc/40?img=3';
+        statusIcon.innerHTML = '<span class="ml-2">✓✓</span>'; // Read indicator
+      } else {
+        messageWrapper.className = 'flex justify-start';
+        messageContent.classList.add('bg-gray-200', 'text-gray-800');
+        avatar.src = 'https://i.pravatar.cc/40?img=2';
+        statusIcon.innerHTML = '';
+      }
+
+      avatar.className = 'w-8 h-8 rounded-full';
+      if (isImage) {
+        const img = document.createElement('img');
+        img.src = message;
+        img.className = 'max-w-full rounded-xl';
+        messageContent.appendChild(img);
+      } else {
+        messageContent.textContent = message;
+      }
+
+      // Emoji reactions
+      const emojiReact = document.createElement('div');
+      emojiReact.className = 'absolute -bottom-2 -right-2 text-xl cursor-pointer';
+      emojiReact.textContent = '❤️';
+      emojiReact.title = 'React';
+      emojiReact.onclick = () => alert('You reacted!');
+
+      messageContent.appendChild(emojiReact);
+      timeStamp.innerHTML = `${getTimeStamp()} ${statusIcon.innerHTML}`;
+      messageContent.appendChild(timeStamp);
+
+      if (userTurn) {
+        messageBubble.appendChild(messageContent);
+        messageBubble.appendChild(avatar);
+      } else {
+        messageBubble.appendChild(avatar);
+        messageBubble.appendChild(messageContent);
+      }
+
+      messageWrapper.appendChild(messageBubble);
+      chatBox.appendChild(messageWrapper);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const message = messageInput.value.trim();
+      if (message === '') return;
+
+      appendMessage(message);
+      messageInput.value = '';
+      userTurn = !userTurn;
+
+      if (!userTurn) {
+        typingIndicator.classList.remove('hidden');
+        setTimeout(() => {
+          typingIndicator.classList.add('hidden');
+          appendMessage("Sure! That sounds good.");
+          userTurn = !userTurn;
+        }, 1000);
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = () => {
+      
+                const originalUserTurn = userTurn;
+                userTurn = true;
+                appendMessage(reader.result, true);
+                 userTurn = originalUserTurn;
+             };
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+    emojiBtn.addEventListener('click', () => {
+      messageInput.value += '😊';
+      messageInput.focus();
+    });
+
+    messageInput.addEventListener('input', () => {
+      if (!userTurn) return;
+      typingIndicator.classList.remove('hidden');
+      clearTimeout(window.typingTimeout);
+      window.typingTimeout = setTimeout(() => {
+        typingIndicator.classList.add('hidden');
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
